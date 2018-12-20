@@ -24,5 +24,13 @@ public interface Api {
     Call<LoginResponse> userLogin(
                         @Field("username") String username,
                         @Field("password") String password);
+
+    @FormUrlEncoded
+    @POST("update.php")
+    Call<DefaultResponse> userUpdate(
+            @Field("username") String username,
+            @Field("email") String email,
+            @Field("fullname") String fullname,
+            @Field("password") String password);
 }
 

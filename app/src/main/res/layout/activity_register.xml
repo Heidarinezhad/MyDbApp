@@ -3,7 +3,7 @@
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-android:background="#304769"
+android:background="@color/colorPrimary"
 android:gravity="center_vertical"
 android:orientation="vertical"
 android:padding="50dp"
@@ -77,7 +77,7 @@ tools:context=".activities.RegisterActivity">
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:background="#f05924"
+    android:background="@color/colorAccent"
     android:text="Register"
     android:textColor="@android:color/white" />
 
@@ -94,7 +94,7 @@ tools:context=".activities.RegisterActivity">
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:background="#aaa"
+    android:background="@color/colorAccent"
     android:text="Log in"
     android:textColor="@android:color/white" />
 

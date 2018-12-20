@@ -2,7 +2,6 @@ package com.khn.mydbapp.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -35,31 +34,31 @@ public class LoginActivity extends AppCompatActivity {
         etLoginUsername = findViewById(R.id.etLoginUsername);
         etLoginPassword = findViewById(R.id.etLoginPassword);
 
-        User u = new User("","","","");
+        u = new User("","","","");
         btnLogin = findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
+
             public void onClick(View v) {
                 username = etLoginUsername.getText().toString().toLowerCase().trim();
                 password = etLoginPassword.getText().toString().trim();
 
-                 if(validateInputs()) {
-                     userLogin();
-                 }
-            }
-        });
+                if(validateInputs())
+                        userLogin();
+                }
+            });
+
         btnRegister = findViewById(R.id.btnRegister);
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), RegisterActivity.class);
                 startActivity(i);
-              //  overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                 finish();
             }
         });
     }
-
+//---------------------------Oncreate-------------------------------------
     @Override
     protected void onStart() {
         super.onStart();
@@ -71,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     //--------------------------------------------------------
-    private void userLogin(){
+    private void userLogin() {
 
         displayLoader();
         final User u = new User("","","","");

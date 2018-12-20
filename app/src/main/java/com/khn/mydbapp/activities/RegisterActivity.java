@@ -46,7 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(i);
-                //  overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                 finish();
             }
         });
@@ -70,11 +70,12 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if(SharedPrefManager.getmInstance(this).isNotLoggedIn()){
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        }
+       // if(SharedPrefManager.getmInstance(this).isNotLoggedIn()){
+       //     Intent intent = new Intent(this, MainActivity.class);
+       //     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+       //     startActivity(intent);
+       //     overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+       // }
     }
     //--------------------------------------------------------
     private void registerUser() {
@@ -85,6 +86,7 @@ public class RegisterActivity extends AppCompatActivity {
             .getmInstance()
             .getApi()
             .createUser(username,email,fullname,password);
+
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -92,6 +94,7 @@ public class RegisterActivity extends AppCompatActivity {
                 try {
                     String s=response.body().string();
                     Toast.makeText(RegisterActivity.this, s, Toast.LENGTH_SHORT).show();
+                    finish();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
