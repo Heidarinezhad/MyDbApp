@@ -1,7 +1,9 @@
 package com.khn.mydbapp.activities;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +17,7 @@ import com.khn.mydbapp.storage.SharedPrefManager;
 
 import java.io.IOException;
 
+import dmax.dialog.SpotsDialog;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -60,6 +63,7 @@ public class RegisterActivity extends AppCompatActivity {
                 password = etPassword.getText().toString().trim();
                 confirmPassword = etConfirmPassword.getText().toString().trim();
                 email= etEmail.getText().toString().trim().toLowerCase();
+                //displayLoader();
                 if (validateInputs())
                     registerUser();
             }
@@ -79,8 +83,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
     //--------------------------------------------------------
     private void registerUser() {
-        String st;
-        displayLoader();
+        ShowAndWait("Registering New User.....", 1000);
 
         Call<ResponseBody> call = RetrofitClient
             .getmInstance()
@@ -102,11 +105,12 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(RegisterActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                ShowAndWait("Server Unreachable!...Check Status or Network Connection", 4000);
+
             }
         });
 
-        pDialog.dismiss();
+        //pDialog.dismiss();
 
     }
     //--------------------------------------------------------
@@ -147,11 +151,19 @@ public class RegisterActivity extends AppCompatActivity {
     return true;
 }
 //---------------------------------------------------------
-private void displayLoader() {
-    pDialog = new ProgressDialog(RegisterActivity.this);
-    pDialog.setMessage("Registering... Please wait...");
-    pDialog.setIndeterminate(false);
-    pDialog.setCancelable(false);
-    pDialog.show();
+public void ShowAndWait(String msg, int timeout){
+    final AlertDialog alertDialog= new  SpotsDialog.Builder().setTheme(R.style.Custom).setContext(this).build();
+    // final AlertDialog alertDialog= new  SpotsDialog.Builder().setContext(this).build();
+    alertDialog.setCancelable(false);
+    alertDialog.setMessage(msg);
+    alertDialog.show();
+
+    new Handler().postDelayed(new Runnable() {
+        @Override
+        public void run() {
+            alertDialog.dismiss();
+        }},timeout);
 }
+//--------------------------------------------------------
+
 }

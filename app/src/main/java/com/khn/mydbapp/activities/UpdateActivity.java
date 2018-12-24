@@ -1,6 +1,8 @@
 package com.khn.mydbapp.activities;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +19,7 @@ import com.khn.mydbapp.storage.SharedPrefManager;
 
 import java.io.IOException;
 
+import dmax.dialog.SpotsDialog;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,7 +30,6 @@ public class UpdateActivity extends AppCompatActivity {
     private EditText etFullName, etEmail, etPassword, etConfirmPassword;
     private TextView textViewUsername;
     private Button btnUpdate;
-    private ProgressDialog pDialog;
     private User user;
 
     @Override
@@ -75,7 +77,7 @@ public class UpdateActivity extends AppCompatActivity {
     //--------------------------------------------------------
     private void UpdateUser() {
 
-        displayLoader();
+        ShowAndWait("Updating User...Please Wait!!", 1000);
 
         final User u = new User(username,email,fullname,createdAt);
 
@@ -93,18 +95,17 @@ public class UpdateActivity extends AppCompatActivity {
                     u.setCreatedAt(createdAt);
                     SharedPrefManager.getmInstance(UpdateActivity.this).saveUser(u);
 
-                    Toast.makeText(UpdateActivity.this, defaultResponse.getMsg(), Toast.LENGTH_SHORT).show();
+                    ShowAndWait(defaultResponse.getMsg(), 2000);
                     finish();
                 }
             }
 
             @Override
             public void onFailure(Call<DefaultResponse> call, Throwable t) {
-                Toast.makeText(UpdateActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
+                ShowAndWait(t.getMessage(), 2000);
+             }
         });
 
-        pDialog.dismiss();
     }
     //--------------------------------------------------------
     private boolean validateInputs() {
@@ -134,12 +135,17 @@ public class UpdateActivity extends AppCompatActivity {
         return true;
     }
     //---------------------------------------------------------
-    private void displayLoader() {
-        pDialog = new ProgressDialog(UpdateActivity.this);
-        pDialog.setMessage("Updating... Please wait...");
-        pDialog.setIndeterminate(false);
-        pDialog.setCancelable(false);
-        pDialog.show();
+    public void ShowAndWait(String msg, int timeout){
+        final AlertDialog alertDialog= new  SpotsDialog.Builder().setTheme(R.style.Custom).setContext(this).build();
+        // final AlertDialog alertDialog= new  SpotsDialog.Builder().setContext(this).build();
+        alertDialog.setCancelable(false);
+        alertDialog.setMessage(msg);
+        alertDialog.show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                alertDialog.dismiss();
+            }},timeout);
     }
 }
 

@@ -1,7 +1,9 @@
 package com.khn.mydbapp.activities;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +16,7 @@ import com.khn.mydbapp.models.LoginResponse;
 import com.khn.mydbapp.models.User;
 import com.khn.mydbapp.storage.SharedPrefManager;
 
+import dmax.dialog.SpotsDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -23,8 +26,6 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etLoginUsername, etLoginPassword;
     private String username,password;
     private Button btnLogin,btnRegister;
-    private ProgressDialog pDialog;
-    private User u;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
         etLoginUsername = findViewById(R.id.etLoginUsername);
         etLoginPassword = findViewById(R.id.etLoginPassword);
 
-        u = new User("","","","");
+        //User u = new User("","","","");
         btnLogin = findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(new View.OnClickListener() {
 
@@ -72,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
     //--------------------------------------------------------
     private void userLogin() {
 
-        displayLoader();
+        ShowAndWait("Registering New User.....", 1000);
         final User u = new User("","","","");
         Call<LoginResponse> call = RetrofitClient
                 .getmInstance().getApi().userLogin(username,password);
@@ -82,27 +83,27 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 LoginResponse loginResponse = response.body();
 
-                pDialog.dismiss();
                 Toast.makeText(LoginActivity.this, loginResponse.getMsg(), Toast.LENGTH_SHORT).show();
                 if (loginResponse.getStatus() == 0) {  //Successful login
-                    u.setUsername(username);
-                    u.setFullname(loginResponse.getFullname());
-                    u.setEmail(loginResponse.getEmail());
-                    u.setCreatedAt(loginResponse.getCreatedAt());
+                       u.setUsername(username);
+                       u.setFullname(loginResponse.getFullname());
+                       u.setEmail(loginResponse.getEmail());
+                       u.setCreatedAt(loginResponse.getCreatedAt());
 
-                    SharedPrefManager.getmInstance(LoginActivity.this)
-                    .saveUser(u);
+                       SharedPrefManager.getmInstance(LoginActivity.this).saveUser(u);
 
-                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(i);
+                       Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                       i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                       startActivity(i);
 
-                    }
+                        }
                     else
-                       Toast.makeText(LoginActivity.this, loginResponse.getMsg(), Toast.LENGTH_SHORT).show();
+                        ShowAndWait(loginResponse.getMsg(), 1000);
+
             }
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
+                ShowAndWait("Server Unreachable!...Check Status or Network Connection", 3000);
             }
         });
     }
@@ -120,12 +121,18 @@ public class LoginActivity extends AppCompatActivity {
         }
         return true;
     }
-    //----------------------------------------------------
-    private void displayLoader() {
-        pDialog = new ProgressDialog(LoginActivity.this);
-        pDialog.setMessage("Logging In.. Please wait...");
-        pDialog.setIndeterminate(false);
-        pDialog.setCancelable(false);
-        pDialog.show();
+    //----------------------------------------------------------------------------------------------------------
+    public void ShowAndWait(String msg, int timeout){
+        final AlertDialog alertDialog= new  SpotsDialog.Builder().setTheme(R.style.Custom).setContext(this).build();
+        // final AlertDialog alertDialog= new  SpotsDialog.Builder().setContext(this).build();
+        alertDialog.setCancelable(false);
+        alertDialog.setMessage(msg);
+        alertDialog.show();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                alertDialog.dismiss();
+            }},timeout);
     }
 }

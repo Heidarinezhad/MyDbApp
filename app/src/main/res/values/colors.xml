@@ -3,4 +3,5 @@
     <color name="colorPrimary">#874801</color>
     <color name="colorPrimaryDark">#75450e</color>
     <color name="colorAccent">#442c0f</color>
+    <color name="spots_dialog_color">@color/colorPrimaryDark</color>
 </resources>
