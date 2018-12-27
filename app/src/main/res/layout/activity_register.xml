@@ -1,101 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:background="@color/colorPrimary"
-android:gravity="center_vertical"
-android:orientation="vertical"
-android:padding="50dp"
-tools:context=".activities.RegisterActivity">
-
-<TextView
-    android:id="@+id/textView"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="20dp"
-    android:gravity="center"
-    android:text="Sign up"
-    android:textAllCaps="true"
-    android:textColor="@android:color/white"
-    android:textSize="26sp"
-    android:textStyle="bold" />
+    android:layout_height="match_parent"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
+    android:background="@color/colorPrimary"
+    android:padding="50dp"
+    tools:context=".activities.RegisterActivity">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Register"
+        android:textAllCaps="true"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
-<EditText
-    android:id="@+id/etFullName"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    android:background="@android:color/white"
-    android:hint="Full name"
-    android:inputType="textPersonName"
-    android:padding="10dp" />
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:maxHeight="200dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/profileimage"
+        android:padding="5dp"
+        />
 
-<EditText
-    android:id="@+id/etUsername"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    android:background="@android:color/white"
-    android:hint="Username"
-    android:inputType="textPersonName"
-    android:padding="10dp" />
-
+    <Button
+        android:id="@+id/btnChooseImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView"
+        android:background="@color/colorAccent"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="5dp"
+        android:text="Choose Image"
+        android:textColor="@android:color/white"
+        android:padding="5dp"/>
     <EditText
-    android:id="@+id/etEmail"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    android:background="@android:color/white"
-    android:hint="Email"
-    android:inputType="textEmailAddress"
-    android:padding="10dp" />
-
-<EditText
-    android:id="@+id/etPassword"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    android:background="@android:color/white"
-    android:hint="Password"
-    android:inputType="textPassword"
-    android:padding="10dp" />
-
-<EditText
-    android:id="@+id/etConfirmPassword"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    android:background="@android:color/white"
-    android:hint="Confirm password"
-    android:inputType="textPassword"
-    android:padding="10dp" />
-
-<Button
-    android:id="@+id/btnRegister"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    android:background="@color/colorAccent"
-    android:text="Register"
-    android:textColor="@android:color/white" />
-
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="20dp"
-    android:gravity="center"
-    android:text="Already having account"
-    android:textColor="#ccc" />
-
-<Button
-    android:id="@+id/btnLogin"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    android:background="@color/colorAccent"
-    android:text="Log in"
-    android:textColor="@android:color/white" />
-
-</LinearLayout>
+        android:id="@+id/etFullName"
+        android:layout_below="@+id/btnChooseImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@android:color/white"
+        android:hint="Full name"
+        android:inputType="textPersonName"
+        android:layout_centerHorizontal="true"
+        android:padding="5dp" />
+    <EditText
+        android:id="@+id/etUsername"
+        android:layout_below="@+id/etFullName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@android:color/white"
+        android:hint="Username"
+        android:inputType="textPersonName"
+        android:layout_centerHorizontal="true"
+        android:padding="5dp" />
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_below="@+id/etUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@android:color/white"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:padding="5dp" />
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_below="@+id/etEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@android:color/white"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:padding="5dp" />
+    <EditText
+        android:id="@+id/etConfirmPassword"
+        android:layout_below="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@android:color/white"
+        android:hint="Confirm password"
+        android:inputType="textPassword"
+        android:padding="5dp" />
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_below="@+id/etConfirmPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@color/colorAccent"
+        android:text="Register"
+        android:textColor="@android:color/white"
+        android:padding="5dp" />
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnRegister"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:text="Already having account"
+        android:textColor="#ccc"
+        android:padding="5dp"/>
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:layout_margin="5dp"
+        android:background="@color/colorAccent"
+        android:text="Log in"
+        android:textColor="@android:color/white"
+        android:padding="5dp"
+        />
+</RelativeLayout>

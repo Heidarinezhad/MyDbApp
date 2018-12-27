@@ -21,7 +21,8 @@ public interface Api {
                          @Field("username") String username,
                          @Field("email") String email,
                          @Field("fullname") String fullname,
-                         @Field("password") String password);
+                         @Field("password") String password,
+                         @Field("image") String image);
 
     @FormUrlEncoded
     @POST("login.php")

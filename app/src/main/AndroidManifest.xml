@@ -5,6 +5,7 @@
     <!-- adding internet permission -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -24,7 +25,9 @@
         <activity android:name=".activities.MainActivity" />
         <activity android:name=".activities.RegisterActivity" />
         <activity android:name=".activities.UpdateActivity" />
-        <activity android:name=".activities.ShowAllUsersActivity"></activity>
+        <activity android:name=".activities.ShowAllUsersActivity" />
+        <activity android:name=".activities.GetImageActivity">
+        </activity>
     </application>
 
 </manifest>
